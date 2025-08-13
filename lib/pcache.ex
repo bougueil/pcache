@@ -15,7 +15,7 @@ defmodule Pcache do
   def empty?(), do: size() == 0
 
   @doc """
-  retrieve the value with `retrieve_fun.(key)` unless the value is already found with `key`.
+  Retrieve the value with `retrieve_fun.(key)` unless the value is already found with `key`.
 
   ## Example
 
@@ -41,7 +41,7 @@ defmodule Pcache do
   end
 
   @doc """
-    same as get!/2 but returns also a boolean if the value is cached.
+    Same as get!/2 but returns also a boolean if the value is cached.
 
   ## Example
 
@@ -65,4 +65,19 @@ defmodule Pcache do
         {val, false}
     end
   end
+
+  @doc """
+  Retrieve the cache's content or nil if not set.
+
+  ## Example
+
+  iex> Pcache.content()
+  nil
+  iex> Pcache.get!(:a, &is_atom/1)
+  true
+  iex> Pcache.content()
+  %{a: true}
+  """
+
+  def content(), do: Process.get(:pcache)
 end

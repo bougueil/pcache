@@ -30,6 +30,13 @@ defmodule PcacheTest do
     assert cached?
   end
 
+  test "content/0" do
+    assert is_nil(Pcache.content())
+    _ = Pcache.get(:a, &is_atom/1)
+    _ = Pcache.get(:b, &is_atom/1)
+    assert %{a: true, b: true}
+  end
+
   @iters 500
   @val :math.pi() / 4
 
